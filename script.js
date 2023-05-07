@@ -1,13 +1,11 @@
 const clientId = "ae46f54c86c85c3";
 
-var defaultAlbumId = 'Jfni3';
+var defaultAlbumId = '';
 
 function requestAlbum() {
-    let albumId = document.getElementById("albumIdField").innerText;
-    console.log(albumId)
-    if(!albumId) {
-        albumId = defaultAlbumId;
-    }
+    let albumId = document.getElementById("albumIdField").value;
+    let resultDiv = document.getElementById("result");
+    resultDiv.innerHTML = "";
     var req = new XMLHttpRequest();
     req.onreadystatechange = function () {
         if (req.readyState == 4 && req.status == 200) {
@@ -16,7 +14,8 @@ function requestAlbum() {
             for(item of response.data){
                 let imgElem = document.createElement("img");
                 imgElem.src = item.link;
-                document.body.appendChild(imgElem);
+
+                resultDiv.appendChild(imgElem);
             }
         }
         else if (req.readyState == 4 && req.status != 200) {
